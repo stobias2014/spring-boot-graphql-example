@@ -39,5 +39,10 @@ public class FoodService {
 	public Food save(@GraphQLArgument(name = "food") Food food) {
 		return foodRepository.save(food);
 	}
+	
+	@GraphQLMutation(name = "deleteFood")
+	public void deleteFood(@GraphQLArgument(name = "id") Long id) {
+		foodRepository.deleteById(id);
+	}
 
 }
