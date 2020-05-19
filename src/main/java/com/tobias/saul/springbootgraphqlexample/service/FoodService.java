@@ -1,6 +1,7 @@
 package com.tobias.saul.springbootgraphqlexample.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,11 @@ public class FoodService {
 	@GraphQLQuery(name = "foods")
 	public List<Food> getFoods() {
 		return foodRepository.findAll();
+	}
+	
+	@GraphQLQuery(name = "food")
+	public Optional<Food> getFood(@GraphQLArgument(name = "id") Long id) {
+		return foodRepository.findById(id);
 	}
 	
 	@GraphQLMutation(name = "saveFood")
