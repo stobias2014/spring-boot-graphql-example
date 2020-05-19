@@ -1,5 +1,6 @@
 package com.tobias.saul.springbootgraphqlexample.service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import com.tobias.saul.springbootgraphqlexample.entity.Food;
 import com.tobias.saul.springbootgraphqlexample.repository.FoodRepository;
 
 import io.leangen.graphql.annotations.GraphQLArgument;
+import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
@@ -43,6 +45,11 @@ public class FoodService {
 	@GraphQLMutation(name = "deleteFood")
 	public void deleteFood(@GraphQLArgument(name = "id") Long id) {
 		foodRepository.deleteById(id);
+	}
+	
+	@GraphQLQuery(name = "isGood")
+	public boolean isGood(@GraphQLContext Food food) {
+		return !Arrays.asList("Avocado", "Spam").contains(food.getName());
 	}
 
 }
